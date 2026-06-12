@@ -75,6 +75,38 @@ prisma/
   schema.prisma
 ```
 
+## Prisma + PostgreSQL Setup
+
+If this system uses PostgreSQL with Prisma, install the adapter and driver:
+
+```
+npm install @prisma/adapter-pg pg
+npm install --save-dev @types/pg
+```
+
+Then generate the Prisma client:
+
+```
+npx prisma generate
+```
+
+`npx prisma generate` reads `schema.prisma` and generates a type-safe database
+client tailored to that schema. It gives you:
+
+- **Type safety** – every model becomes a TypeScript type, so queries are
+  autocompleted and typo'd/incorrect fields are caught at compile time.
+- **A typed query builder** – `PrismaClient` exposes `.findMany()`, `.create()`,
+  `.update()`, `.delete()`, etc. for each model, with `where`/`include`/`select`
+  fully typed, so you don't need to write raw SQL.
+- **The actual runtime code** – the generated client also contains the logic
+  that turns those calls into SQL sent to Postgres via `PrismaPg`.
+
+`schema.prisma` is the source of truth for your database structure, and
+`prisma generate` compiles it into the client your app code uses to talk to
+the database. Re-run it whenever `schema.prisma` changes (newer Prisma
+versions also do this automatically via a `postinstall` hook, but running it
+manually is always safe).
+
 ## API
 
 | Method | Route                | Auth | Description          |
