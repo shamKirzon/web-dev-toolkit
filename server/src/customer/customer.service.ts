@@ -2,7 +2,7 @@ class CustomerService {
   async login() {}
 
   async getCustomerCountsByPeriod(period: number) {
-    // TODO: replace with a real Prisma query once the database is wired up
+    // TODO: replace with a real database query once it's wired up
     return period * 10;
   }
 }
